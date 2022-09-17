@@ -1,9 +1,15 @@
 import "../styles/globals.css";
 import { SessionProvider } from "next-auth/react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const queryClient = new QueryClient();
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <Component {...pageProps} />
+        </Hydrate>
+      </QueryClientProvider>
     </SessionProvider>
   );
 }
