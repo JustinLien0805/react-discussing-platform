@@ -16,7 +16,7 @@ model Post {
 
 model User {
   id       String    @id @default(uuid())
-  name     String
+  name     String    @unique
   comments Comment[]
   likes    Like[]
 }

@@ -1,4 +1,3 @@
-import Header from "../components/Header";
 import PostList from "../components/PostList";
 import Background from "../components/Background";
 import { IoRocketOutline } from "react-icons/io5";
@@ -9,11 +8,6 @@ import fetchNewPost from "./api/fetchNewPost";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Home({ posts }) {
-  const { data, isLoading, refetch, isFetching } = useQuery(["newPost"], fetchNewPost, {
-    enabled: false,
-  });
-  if(isFetching) console.log("fetching")
-  if (data) console.log(data);
   return (
     <Background>
       <div className="flex lg:mx-80 md:mx-40 lg:my-16 flex-col">
@@ -22,10 +16,7 @@ export default function Home({ posts }) {
             <IoRocketOutline className="mr-2" />
             Trending
           </button>
-          <button
-            className="flex items-center font-extrabold md:text-[2.5rem] rounded-full hover:bg-[#202020] p-2"
-            onClick={() => refetch}
-          >
+          <button className="flex items-center font-extrabold md:text-[2.5rem] rounded-full hover:bg-[#202020] p-2">
             <RiLightbulbLine className="mr-2" />
             New
           </button>
