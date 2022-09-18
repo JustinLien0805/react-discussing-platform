@@ -4,8 +4,7 @@ import { IoRocketOutline } from "react-icons/io5";
 import { RiLightbulbLine } from "react-icons/ri";
 import React from "react";
 import { loadPosts } from "../lib/loadPosts";
-import fetchNewPost from "./api/fetchNewPost";
-import { useQuery } from "@tanstack/react-query";
+
 
 export default function Home({ posts }) {
   return (

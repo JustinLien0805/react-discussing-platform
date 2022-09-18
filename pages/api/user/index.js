@@ -12,6 +12,7 @@ export default async function handle(req, res) {
       name: name,
     },
   });
+  // add comment to DATABASE
   if (user) {
     const newComment = await prisma.comment.create({
       data: {
