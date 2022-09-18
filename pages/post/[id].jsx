@@ -5,7 +5,7 @@ import { AiFillGithub } from "react-icons/ai";
 import ReactPlayer from "react-player/lazy";
 import { useSession, signIn } from "next-auth/react";
 import { FiSend } from "react-icons/fi";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import CommentList from "../../components/CommentList";
@@ -15,6 +15,7 @@ const PostPage = ({ post, comments }) => {
   const [vID, setVID] = useState(post.body.slice(26, -18));
   const [hasWindow, setHasWindow] = useState(false);
   const [comment, setComment] = useState("");
+  const queryClient = useQueryClient();
   // get router params
   const router = useRouter();
   const { id } = router.query;
@@ -27,10 +28,11 @@ const PostPage = ({ post, comments }) => {
   }, []);
 
   // save initial comments in useQuery
-  const { data } = useQuery(
+  const { data, refetch } = useQuery(
     ["comments"],
     async () => {
-      return await axios.get("/api/comments", { id });
+      const res = await axios.get("/api/comments", { id });
+      return res.data;
     },
     {
       initialData: comments,
@@ -39,9 +41,17 @@ const PostPage = ({ post, comments }) => {
   );
 
   // mutation for adding comments and user
-  const mutation = useMutation((newUserAndComment) => {
-    return axios.post("/api/user", newUserAndComment);
-  });
+  // refetch query onsuccess
+  const mutation = useMutation(
+    (newUserAndComment) => {
+      return axios.post("/api/user", newUserAndComment);
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
   const handlePost = (e) => {
     e.preventDefault();
     if (status === "unauthenticated") {

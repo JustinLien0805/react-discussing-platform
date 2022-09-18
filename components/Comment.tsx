@@ -17,9 +17,7 @@ const Comment = ({ comment }) => {
       </div>
       <div>
         <p className="text-lg font-semibold text-[#e8e8e8]">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsum
-          reprehenderit ducimus magni placeat dignissimos illum, earum tempore!
-          Impedit, porro. Ea iure corrupti impedit.
+          {comment.message}
         </p>
       </div>
       <div className="flex flex-grow spacing-x-4">
