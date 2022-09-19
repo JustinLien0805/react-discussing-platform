@@ -5,7 +5,12 @@ import { AiFillGithub } from "react-icons/ai";
 import ReactPlayer from "react-player/lazy";
 import { useSession, signIn } from "next-auth/react";
 import { FiSend } from "react-icons/fi";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  useIsFetching,
+} from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/router";
 import CommentList from "../../components/CommentList";
@@ -64,6 +69,8 @@ const PostPage = ({ post, comments }) => {
       setComment("");
     }
   };
+  const isFetching = useIsFetching();
+
   return (
     <Background>
       <div className="flex flex-col justify-center text-white xl:mx-80 lg:mx-60 md:mx-40 lg:my-16 mx-4">

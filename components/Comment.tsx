@@ -4,6 +4,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { IoIosShareAlt } from "react-icons/io";
 import { useQuery } from "@tanstack/react-query";
 import CommentList from "./CommentList";
+import PulseLoader from "react-spinners/PulseLoader";
 const Comment = ({ comment }) => {
   const [isReplying, setIsReplying] = useState(false);
   const [showChild, setShowChild] = useState(false);
@@ -13,7 +14,7 @@ const Comment = ({ comment }) => {
     timeStyle: "short",
   });
   // usequery get child comments
-  const { data: childComments } = useQuery(
+  const { data: childComments, isLoading } = useQuery(
     [`${comment.id}:childComments`],
     async () => {
       const res = await axios.get(`/api/comments/${comment.id}`);
@@ -41,6 +42,7 @@ const Comment = ({ comment }) => {
           />
         </div>
       </div>
+      {isLoading && <PulseLoader />}
       {childComments?.length > 0 && (
         <div className="flex w-full justify-center">
           <button
