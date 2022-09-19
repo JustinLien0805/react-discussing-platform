@@ -79,6 +79,7 @@ const PostPage = ({ post, comments }) => {
             url={`https://www.youtube.com/watch?v=${vID}`}
             controls={true}
             className="w-full h-full"
+            width="100%"
           />
         )}
         <div className="my-4">
