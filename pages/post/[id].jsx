@@ -31,7 +31,7 @@ const PostPage = ({ post, comments }) => {
   const { data, refetch } = useQuery(
     ["comments"],
     async () => {
-      const res = await axios.get("/api/comments", { id });
+      const res = await axios.get("/api/comments", { id }); // res is object
       return res.data;
     },
     {
@@ -66,7 +66,7 @@ const PostPage = ({ post, comments }) => {
   };
   return (
     <Background>
-      <div className="flex flex-col justify-center text-white lg:mx-80 md:mx-40 lg:my-16 mx-4">
+      <div className="flex flex-col justify-center text-white xl:mx-80 lg:mx-60 md:mx-40 lg:my-16 mx-4">
         <div className="flex items-center space-x-4">
           <AiFillGithub className="h-4 w-4" />
           <h3 className="font-light text-sm">Rick Astley</h3>
